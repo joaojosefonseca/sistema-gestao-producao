@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema Unificado v9.0 · Geração Completa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cv-blue-dark:#0D3851;--cv-blue:#194A6D;--cv-blue-light:#2A6A8F;--cv-green:#0D8C5E;--cv-green-light:#10A068;--cv-green-pale:#E6F7F0;--cv-cream:#F7F5F0;--cv-white:#FFFFFF;--cv-gold:#C8A96E;--cv-coral:#F28B6C;--cv-text:#2C2C2C;--cv-text-light:#666;--shadow-sm:0 1px 4px rgba(13,56,81,.06);--shadow-md:0 4px 20px rgba(13,56,81,.1);--shadow-lg:0 8px 40px rgba(13,56,81,.15);--radius:12px;--radius-lg:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:var(--cv-cream);color:var(--cv-text);line-height:1.65}
+
+.top-bar{background:linear-gradient(135deg,var(--cv-blue-dark),var(--cv-blue));padding:0 32px;display:flex;align-items:center;height:60px;position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(13,56,81,.3)}
+.top-bar .logo{font-family:'Playfair Display',serif;color:#fff;font-size:20px;font-weight:700}.top-bar .logo span{color:var(--cv-green-light)}
+.top-bar .pipe{color:rgba(255,255,255,.2);margin:0 14px;font-size:18px}.top-bar .tagline{color:rgba(255,255,255,.55);font-size:12px}
+.top-bar .api-status{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)}
+.top-bar .api-dot{width:8px;height:8px;border-radius:50%;background:#666;transition:all .3s}
+.top-bar .api-dot.on{background:#0f0;box-shadow:0 0 6px #0f0}
+
+.step-nav{background:var(--cv-white);border-bottom:1px solid rgba(13,56,81,.06);padding:0 16px;display:flex;position:sticky;top:60px;z-index:190;overflow-x:auto}
+.step-tab{padding:14px 16px;font-size:13px;font-weight:600;color:var(--cv-text-light);cursor:pointer;border-bottom:3px solid transparent;transition:all .25s;display:flex;align-items:center;gap:7px;white-space:nowrap;user-select:none}
+.step-tab:hover{color:var(--cv-blue)}.step-tab.active{color:var(--cv-blue-dark);border-bottom-color:var(--cv-green)}.step-tab.done{color:var(--cv-green)}
+.step-tab .n{width:24px;height:24px;border-radius:50%;background:rgba(13,56,81,.08);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.step-tab.active .n,.step-tab.done .n{background:var(--cv-green);color:#fff}.step-tab.locked{opacity:.35;cursor:not-allowed}
+
+.panel{display:none;max-width:980px;margin:0 auto;padding:28px 24px 90px}
+.panel.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:var(--cv-white);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px;box-shadow:var(--shadow-sm);border:1px solid rgba(13,56,81,.05)}
+.card-h{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--cv-green-pale)}
+.card-ic{width:38px;height:38px;background:linear-gradient(135deg,var(--cv-blue-dark),var(--cv-blue));color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.card-t{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cv-blue-dark)}
+.card-s{font-size:12px;color:var(--cv-text-light);margin-top:1px}
+
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}.fr.full{grid-template-columns:1fr}.fr.tri{grid-template-columns:1fr 1fr 1fr}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:11px;font-weight:600;color:var(--cv-text-light);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 12px;border:1.5px solid rgba(13,56,81,.14);border-radius:var(--radius);font-family:'Source Sans 3',sans-serif;font-size:14px;color:var(--cv-text);background:#fff;transition:all .2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--cv-blue);box-shadow:0 0 0 3px rgba(25,74,109,.1)}
+.fg input[type=password]{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:1px}
+
+.tc{background:linear-gradient(135deg,rgba(13,56,81,.03),rgba(13,140,94,.02));border:1.5px solid rgba(13,56,81,.1);border-radius:var(--radius);padding:20px;margin-bottom:14px}
+.tc-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.badge{padding:3px 12px;border-radius:16px;font-size:11px;font-weight:700}.badge-t{background:var(--cv-blue-dark);color:#fff}.badge-s{background:var(--cv-green-pale);color:var(--cv-green)}
+.sc{background:var(--cv-white);border:1px solid rgba(13,56,81,.1);border-radius:10px;padding:16px;margin-bottom:10px;margin-left:20px;border-left:3px solid var(--cv-green)}
+.sc-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border:none;border-radius:var(--radius);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-p{background:var(--cv-blue-dark);color:#fff}.btn-p:hover{background:#0a2d44}
+.btn-g{background:var(--cv-green);color:#fff}.btn-g:hover{background:#0a7549}
+.btn-gold{background:var(--cv-gold);color:#fff}.btn-gold:hover{background:#b89558}
+.btn-o{background:transparent;color:var(--cv-blue-dark);border:1.5px solid var(--cv-blue)}.btn-o:hover{background:rgba(25,74,109,.05)}
+.btn-d{background:transparent;color:var(--cv-coral);border:1.5px solid var(--cv-coral);padding:5px 12px;font-size:11px}
+.btn-sm{padding:7px 14px;font-size:12px}.btn-lg{padding:14px 36px;font-size:15px}
+.btn-x{width:28px;height:28px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1.5px solid var(--cv-coral);background:transparent;color:var(--cv-coral);cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.cb{background:#0d1117;color:#e6edf3;border-radius:var(--radius);padding:20px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.65;white-space:pre-wrap;word-wrap:break-word;max-height:450px;overflow-y:auto;border:1px solid #21262d}
+.cb::-webkit-scrollbar{width:6px}.cb::-webkit-scrollbar-track{background:#161b22}.cb::-webkit-scrollbar-thumb{background:#30363d;border-radius:3px}
+.sr{display:flex;gap:18px;flex-wrap:wrap;padding:14px 18px;background:var(--cv-green-pale);border-radius:var(--radius);margin-bottom:14px}
+.st{display:flex;flex-direction:column;gap:1px}.st-l{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--cv-text-light);font-weight:600}.st-v{font-size:18px;font-weight:700;color:var(--cv-blue-dark);font-family:'Playfair Display',serif}
+.ar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+
+.hbox{border-radius:var(--radius);padding:16px 18px;margin-bottom:18px;font-size:13px}
+.hbox-gold{background:linear-gradient(135deg,rgba(200,169,110,.08),rgba(200,169,110,.02));border:1px solid rgba(200,169,110,.3);border-left:4px solid var(--cv-gold)}
+.hbox-green{background:var(--cv-green-pale);border:1px solid rgba(13,140,94,.2);border-left:4px solid var(--cv-green)}
+.hbox-coral{background:rgba(242,139,108,.06);border:1px solid rgba(242,139,108,.2);border-left:4px solid var(--cv-coral)}
+
+/* LOADING */
+.spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(13,56,81,.15);border-top-color:var(--cv-blue-dark);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress-bar{width:100%;height:6px;background:rgba(13,56,81,.1);border-radius:3px;overflow:hidden;margin:12px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--cv-green),var(--cv-green-light));border-radius:3px;transition:width .5s ease;width:0}
+.gen-status{font-size:13px;color:var(--cv-text-light);margin:8px 0;min-height:20px}
+
+/* APPROVE BAR */
+.approve-bar{display:flex;gap:10px;align-items:center;padding:16px;background:var(--cv-green-pale);border:1.5px solid rgba(13,140,94,.2);border-radius:var(--radius);margin:16px 0}
+.approve-bar.hidden{display:none}
+
+/* RESULT CARD */
+.result-card{margin-bottom:16px}
+.result-card .cb{max-height:350px}
+.result-card.pending{opacity:.4}
+
+.val-list{list-style:none;padding:0}.val-item{padding:8px 12px;margin-bottom:4px;border-radius:8px;font-size:13px;display:flex;align-items:center;gap:8px}
+.val-ok{background:var(--cv-green-pale);color:#0a6b3f}.val-warn{background:#FFF8E1;color:#8B6914}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--cv-blue-dark);color:#fff;padding:11px 26px;border-radius:var(--radius);box-shadow:var(--shadow-lg);font-weight:600;font-size:13px;opacity:0;transition:all .35s;z-index:9999}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media(max-width:700px){.fr,.fr.tri{grid-template-columns:1fr}.top-bar{padding:0 14px}.top-bar .tagline,.top-bar .api-status{display:none}.step-nav{padding:0 8px}.step-tab{padding:10px 10px;font-size:12px}.panel{padding:14px 10px 70px}.card{padding:18px}}
+
+/* SOURCE OPTION */
+.src-active{border-color:var(--cv-green) !important;background:var(--cv-green-pale) !important;opacity:1 !important}
+.src-inactive{border-color:rgba(13,56,81,.15) !important;background:var(--cv-white) !important;opacity:.5}
+.tall{min-height:300px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;resize:vertical}
+/* REFS */
+.ref-item{background:#fff;border:1px solid rgba(13,56,81,.1);border-radius:10px;padding:16px;margin-bottom:12px}
+.ref-item.resolved{border-color:var(--cv-green);background:rgba(13,140,94,.03)}
+.ref-cite{font-weight:600;color:var(--cv-blue-dark);font-size:14px;margin-bottom:8px}
+.ref-links{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.ref-links a{font-size:12px;background:rgba(13,56,81,.06);color:var(--cv-blue);padding:4px 10px;border-radius:4px;text-decoration:none;font-weight:600}
+.ref-links a:hover{background:rgba(13,56,81,.12)}
+.ref-input{width:100%;padding:8px 12px;border:1.5px solid rgba(13,56,81,.14);border-radius:6px;font-size:13px;font-family:'Source Sans 3',sans-serif}
+.ref-input:focus{border-color:var(--cv-green);outline:none}
+.qa-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;font-size:13px;color:var(--cv-text);cursor:pointer;line-height:1.5}
+.qa-item input[type="checkbox"]{margin-top:3px;accent-color:var(--cv-green);width:16px;height:16px;flex-shrink:0}
+.qa-item:has(input:checked){color:var(--cv-green);text-decoration:line-through;opacity:.7}
+</style>
+<!-- PDF.js for reading PDFs in browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- Mammoth.js for reading DOCX in browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
+<!-- ═══ BIBLIOTECAS v9.0 - PDF e PNG ═══ -->
+<!-- html2pdf.js - Geração de PDFs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!-- html2canvas - Captura de elementos como imagem -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- JSZip - Criação de arquivos ZIP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo">Sistema <span>Unificado</span></div>
+  <span class="pipe">|</span>
+  <span class="tagline">Geração Completa · OpenAI · v9.0</span>
+  <div class="api-status"><div class="api-dot" id="apiDot"></div><span id="apiLabel">API desconectada</span></div>
+</div>
+
+<div class="step-nav">
+  <div class="step-tab active" onclick="go(0)"><span class="n">1</span>Configuração</div>
+  <div class="step-tab locked" onclick="go(1)"><span class="n">2</span>Geração Conteúdo</div>
+  <div class="step-tab locked" onclick="go(2)"><span class="n">3</span>Entregas</div>
+</div>
+
+<!-- ══════ STEP 0: CONFIG ══════ -->
+<div class="panel active" id="p0">
+  <div class="card">
+    <div class="card-h"><div class="card-ic">🔐</div><div><div class="card-t">Conexão API (Segura v8.0)</div><div class="card-s">✅ Chave protegida no servidor — você não precisa mais fornecer chave API</div></div></div>
+    <div class="fr">
+      <div class="fg"><label>Modelo</label><select id="f_model"><option value="gpt-4o">GPT-4o (recomendado)</option><option value="gpt-4o-mini">GPT-4o Mini (mais barato)</option><option value="gpt-4-turbo">GPT-4 Turbo</option></select></div>
+      <div class="fg"><label>Status da Conexão</label><div id="connection-status" style="padding:10px 12px;border:1.5px solid rgba(13,56,81,.14);border-radius:var(--radius);font-size:13px;color:var(--cv-text-light);min-height:42px">Clique em "Testar Conexão" para verificar</div></div>
+    </div>
+    <button class="btn btn-g btn-sm" onclick="testAPI()">🔌 Testar Conexão</button>
+    <span id="api-test-result" style="margin-left:12px;font-size:13px"></span>
+    
+    <div class="hbox hbox-green" style="margin-top:16px;font-size:12px">
+      <strong>🔐 Segurança v8.0:</strong> A chave OpenAI está protegida no servidor Netlify. Você não precisa mais inserir chaves manualmente, tornando o sistema mais seguro e fácil de usar.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h"><div class="card-ic">📋</div><div><div class="card-t">Dados do Conteúdo</div><div class="card-s">Não aparecerão no resultado final</div></div></div>
+    <div class="fr tri">
+      <div class="fg"><label>Código do Curso</label><input type="text" id="f_cod" placeholder="Ex: C001" value="C001" style="font-weight:700;text-transform:uppercase"></div>
+      <div class="fg"><label>Duração (horas)</label><input type="number" id="f_hr" value="20" min="1"></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Nível</label><select id="f_nv"><option>Básico</option><option selected>Intermediário</option><option>Avançado</option><option>Especialização (Mestrado)</option></select></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Título do Conteúdo</label><input type="text" id="f_nm" placeholder="Ex: Fundamentos do Envelhecimento Humano"></div>
+      <div class="fg"><label>Público-Alvo</label><input type="text" id="f_pa" placeholder="Ex: Cuidadores de idosos e profissionais de saúde"></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Instituição (opcional — white-label se vazio)</label><input type="text" id="f_inst" placeholder="Deixe vazio para material sem branding"></div>
+      <div class="fg"><label>Nível de Recursos</label><select id="f_res"><option value="15">Padrão (15/capítulo)</option><option value="20" selected>Expandido (20/capítulo)</option><option value="25">Máximo (25+/capítulo)</option></select></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>🟢 Link WhatsApp (grupo ou contato)</label><input type="text" id="f_wpp" placeholder="https://chat.whatsapp.com/CONVITE ou deixe vazio"></div>
+      <div class="fg"><label>🤖 Link Tutor IA (ChatGPT, etc)</label><input type="text" id="f_ia" placeholder="https://chat.openai.com/g/... ou deixe vazio"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h"><div class="card-ic" style="background:linear-gradient(135deg,var(--cv-gold),var(--cv-green))">📄</div><div><div class="card-t">Fonte do Conteúdo</div><div class="card-s">Escolha: usar um documento-base ou gerar pela LLM</div></div></div>
+    <div class="fr">
+      <div style="cursor:pointer;padding:20px;border:2px solid var(--cv-green);border-radius:var(--radius);text-align:center;background:var(--cv-green-pale);transition:all .2s" id="opt-doc" onclick="setSource('doc')">
+        <div style="font-size:28px;margin-bottom:6px">📄</div>
+        <div style="font-weight:700;color:var(--cv-blue-dark)">Documento-Base</div>
+        <div style="font-size:12px;color:var(--cv-text-light)">Upload PDF/DOCX/TXT ou colar texto</div>
+      </div>
+      <div style="cursor:pointer;padding:20px;border:2px solid rgba(13,56,81,.15);border-radius:var(--radius);text-align:center;transition:all .2s" id="opt-llm" onclick="setSource('llm')">
+        <div style="font-size:28px;margin-bottom:6px">🤖</div>
+        <div style="font-weight:700;color:var(--cv-blue-dark)">Geração pela LLM</div>
+        <div style="font-size:12px;color:var(--cv-text-light)">A OpenAI cria o conteúdo do zero</div>
+      </div>
+    </div>
+    <div id="doc-area">
+      <div class="fr">
+        <div class="fg"><label>Upload de Arquivo (PDF, DOCX, TXT, MD)</label><input type="file" id="f_file" accept=".pdf,.docx,.txt,.md" onchange="handleFile(this)" style="padding:8px"></div>
+        <div class="fg"><label>Status do arquivo</label><div id="file-status" style="padding:10px 12px;border:1.5px solid rgba(13,56,81,.14);border-radius:var(--radius);font-size:13px;color:var(--cv-text-light);min-height:42px">Nenhum arquivo carregado</div></div>
+      </div>
+      <div class="fg"><label>Texto do Documento (extraído automaticamente ou cole aqui)</label><textarea id="f_doctext" class="tall" placeholder="Cole o texto do documento aqui, ou faça upload acima..."></textarea></div>
+      <div id="doc-stats" style="display:none"><div class="sr" id="doc-sr"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h"><div class="card-ic">🗂️</div><div><div class="card-t">Capítulos e Seções</div></div></div>
+    <div id="box-temas"></div>
+    <button class="btn btn-o" onclick="addT()" style="margin-top:8px">＋ Adicionar Capítulo</button>
+  </div>
+
+  <div style="text-align:center;padding:20px 0">
+    <button class="btn btn-g btn-lg" id="btnStart" onclick="startGeneration()">⚡ Iniciar Geração Automática</button>
+  </div>
+</div>
+
+<!-- ══════ STEP 1: GERAÇÃO CONTEÚDO ══════ -->
+<div class="panel" id="p1">
+  <div class="hbox hbox-gold"><strong>🤖 Geração em andamento.</strong> O sistema envia cada capítulo separadamente para a OpenAI. Aprove cada resultado antes de continuar.</div>
+  <div class="progress-bar"><div class="progress-fill" id="prog1"></div></div>
+  <div class="gen-status" id="status1"></div>
+  <div id="gen-results"></div>
+  <!-- References Review Panel -->
+  <div id="refs-panel" style="display:none" class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <h3 style="margin:0;color:var(--cv-blue-dark);font-size:16px">📚 Referências Detectadas</h3>
+      <span class="gen-status" id="refs-count"></span>
+    </div>
+    <div class="hbox" style="font-size:13px;margin-bottom:12px">O sistema detectou marcadores <code>[CITE]</code> no conteúdo. Para cada um, clique nos links para buscar referências reais em bases acadêmicas. Após encontrar, cole a referência ABNT no campo correspondente.</div>
+    <div id="refs-list"></div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-g" onclick="applyRefs()">✅ Aplicar referências e continuar</button>
+      <button class="btn btn-o" onclick="skipRefs()">⏩ Pular (manter [CITE] no texto)</button>
+      <button class="btn btn-o" onclick="autoSearchRefs()">🔍 Buscar automaticamente via IA</button>
+    </div>
+  </div>
+  <div class="approve-bar hidden" id="approve1">
+    <button class="btn btn-g" onclick="approveContent()">✅ Aprovar e avançar para entregas</button>
+  </div>
+  <div id="manual-edit-box" style="display:none" class="card">
+    <div class="fg"><label>Edição Manual do Conteúdo Consolidado</label><textarea id="f_manual" class="cb" style="min-height:300px;max-height:none;background:#fff;color:var(--cv-text);border:1.5px solid rgba(13,56,81,.14)"></textarea></div>
+    <button class="btn btn-g" onclick="approveManual()">✅ Aprovar edição e continuar</button>
+  </div>
+</div>
+
+<!-- ══════ STEP 2: ENTREGAS INDEPENDENTES ══════ -->
+<div class="panel" id="p2">
+  <div class="hbox hbox-green"><strong>🎯 Painel de Entregas</strong> — Gere tudo de uma vez ou cada produto separadamente.</div>
+
+  <!-- GERAR TUDO -->
+  <div class="card" style="border:2px solid var(--cv-green);background:linear-gradient(135deg,rgba(0,196,14,.04),rgba(13,56,81,.03))">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <button class="btn btn-g" onclick="generateAll()" id="btn-all" style="font-size:15px;padding:12px 28px">🚀 Gerar Tudo (5 produtos)</button>
+      <span id="status-all" style="font-size:13px;color:var(--cv-text-light)"></span>
+    </div>
+    <div class="progress-bar" style="margin-top:10px"><div class="progress-fill" id="prog-all"></div></div>
+    <div id="all-summary" style="display:none;margin-top:12px;font-size:13px">
+      <div style="display:flex;flex-wrap:wrap;gap:8px" id="all-badges"></div>
+    </div>
+  </div>
+
+  <!-- === SITE === -->
+  <div class="card">
+    <div class="card-h"><div class="card-ic" style="background:linear-gradient(135deg,var(--cv-gold),var(--cv-coral))">🌐</div><div><div class="card-t">Site Interativo</div><div class="card-s">Bilíngue PT/ES com quiz, diagnóstica, flashcards</div></div>
+      <button class="btn btn-g btn-sm" onclick="generateSite()" id="btn-site" style="margin-left:auto">▶ Gerar Site</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-site"></div></div>
+    <div class="gen-status" id="status-site"></div>
+    <div id="site-result" style="display:none">
+      <div class="sr" id="sr-site"></div>
+      <div class="ar">
+        <button class="btn btn-o btn-sm" onclick="dl('o-site','SITE_PT-ES','html')">⬇ Baixar .html</button>
+        <button class="btn btn-o btn-sm" onclick="previewHTML('o-site')">👁 Preview</button>
+        <button class="btn btn-o btn-sm" onclick="generateSite()">🔄 Regenerar</button>
+      </div>
+      <div class="cb" id="o-site" style="max-height:500px" spellcheck="false"></div>
+    </div>
+  </div>
+
+  <!-- === LIVRO PT === -->
+  <div class="card">
+    <div class="card-h"><div class="card-ic" style="background:linear-gradient(135deg,var(--cv-blue),var(--cv-green))">🇧🇷</div><div><div class="card-t">Livro Digital — Português</div><div class="card-s">E-book completo HTML</div></div>
+      <button class="btn btn-g btn-sm" onclick="generateLivroPT()" id="btn-livro-pt" style="margin-left:auto">▶ Gerar Livro PT</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-livro-pt"></div></div>
+    <div class="gen-status" id="status-livro-pt"></div>
+    <div id="livro-pt-result" style="display:none">
+      <div class="ar">
+        <button class="btn btn-o btn-sm" onclick="dl('o-pt','LIVRO_PT','html')">⬇ Baixar .html</button>
+        <button class="btn btn-p btn-sm" onclick="downloadPDF('o-pt','LIVRO_PT')">📄 PDF</button>
+        <button class="btn btn-o btn-sm" onclick="previewHTML('o-pt')">👁 Preview</button>
+        <button class="btn btn-o btn-sm" onclick="generateLivroPT()">🔄 Regenerar</button>
+      </div>
+      <div class="cb" id="o-pt" style="max-height:400px" spellcheck="false"></div>
+    </div>
+  </div>
+
+  <!-- === LIVRO ES === -->
+  <div class="card">
+    <div class="card-h"><div class="card-ic" style="background:linear-gradient(135deg,var(--cv-coral),var(--cv-gold))">🇪🇸</div><div><div class="card-t">Libro Digital — Español</div><div class="card-s">E-book completo HTML</div></div>
+      <button class="btn btn-gold btn-sm" onclick="generateLivroES()" id="btn-livro-es" style="margin-left:auto">▶ Gerar Libro ES</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-livro-es"></div></div>
+    <div class="gen-status" id="status-livro-es"></div>
+    <div id="livro-es-result" style="display:none">
+      <div class="ar">
+        <button class="btn btn-o btn-sm" onclick="dl('o-es','LIVRO_ES','html')">⬇ Baixar .html</button>
+        <button class="btn btn-p btn-sm" onclick="downloadPDF('o-es','LIVRO_ES')">📄 PDF</button>
+        <button class="btn btn-o btn-sm" onclick="previewHTML('o-es')">👁 Preview</button>
+        <button class="btn btn-o btn-sm" onclick="generateLivroES()">🔄 Regenerar</button>
+      </div>
+      <div class="cb" id="o-es" style="max-height:400px" spellcheck="false"></div>
+    </div>
+  </div>
+
+  <!-- === CARDS PT === -->
+  <div class="card">
+    <div class="card-h"><div class="card-ic" style="background:var(--cv-green)">📱</div><div><div class="card-t">Cards Redes Sociais — PT</div><div class="card-s">5 cards para Instagram/LinkedIn</div></div>
+      <button class="btn btn-g btn-sm" onclick="generateSocialPT()" id="btn-soc-pt" style="margin-left:auto">▶ Gerar Cards PT</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-soc-pt"></div></div>
+    <div class="gen-status" id="status-soc-pt"></div>
+    <div id="social-pt-result" style="display:none">
+      <div class="ar">
+        <button class="btn btn-o btn-sm" onclick="dl('o-soc-pt','CARDS_PT','html')">⬇ Baixar .html</button>
+        <button class="btn btn-o btn-sm" onclick="previewHTML('o-soc-pt')">👁 Preview</button>
+        <button class="btn btn-o btn-sm" onclick="generateSocialPT()">🔄 Regenerar</button>
+      </div>
+      <div class="cb" id="o-soc-pt" style="max-height:400px" spellcheck="false"></div>
+    </div>
+  </div>
+
+  <!-- === CARDS ES === -->
+  <div class="card">
+    <div class="card-h"><div class="card-ic" style="background:var(--cv-gold)">📱</div><div><div class="card-t">Cards Redes Sociales — ES</div><div class="card-s">5 cards para Instagram/LinkedIn</div></div>
+      <button class="btn btn-gold btn-sm" onclick="generateSocialES()" id="btn-soc-es" style="margin-left:auto">▶ Gerar Cards ES</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-soc-es"></div></div>
+    <div class="gen-status" id="status-soc-es"></div>
+    <div id="social-es-result" style="display:none">
+      <div class="ar">
+        <button class="btn btn-o btn-sm" onclick="dl('o-soc-es','CARDS_ES','html')">⬇ Baixar .html</button>
+        <button class="btn btn-o btn-sm" onclick="previewHTML('o-soc-es')">👁 Preview</button>
+        <button class="btn btn-o btn-sm" onclick="generateSocialES()">🔄 Regenerar</button>
+      </div>
+      <div class="cb" id="o-soc-es" style="max-height:400px" spellcheck="false"></div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST QA — Controle de Qualidade Pré-Publicação -->
+  <div class="card" style="margin-top:8px;border:2px solid rgba(13,140,94,.2);background:linear-gradient(135deg,rgba(13,140,94,.03),rgba(13,56,81,.03))">
+    <div class="card-h" style="cursor:pointer" onclick="document.getElementById('qa-body').style.display=document.getElementById('qa-body').style.display==='none'?'block':'none'">
+      <div class="card-ic" style="background:linear-gradient(135deg,var(--cv-green),var(--cv-blue-dark))">✅</div>
+      <div>
+        <div class="card-t">Checklist QA — Aprovação Pré-Publicação</div>
+        <div class="card-s">Clique para abrir · O técnico deve verificar antes de publicar · Não bloqueia nada</div>
+      </div>
+      <span id="qa-score" style="margin-left:auto;font-size:14px;font-weight:700;color:var(--cv-text-light)"></span>
+    </div>
+    <div id="qa-body" style="display:none;margin-top:16px">
+
+      <p style="font-size:13px;color:var(--cv-text-light);margin-bottom:16px;line-height:1.6">
+        📋 <strong>Antes de publicar cada curso</strong>, o revisor técnico deve verificar os itens abaixo. 
+        Marque cada item após verificar. Isto é apenas um lembrete — não impede o download.
+      </p>
+
+      <!-- SEÇÃO 1: Conteúdo -->
+      <div style="margin-bottom:16px">
+        <h4 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--cv-blue-dark);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(13,56,81,.1)">📖 Revisão de Conteúdo</h4>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Texto-base lido integralmente — sem frases incompletas ou truncadas</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Terminologia técnica correta (cuidados paliativos, geriatria)</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Sem "placeholder", "[inserir aqui]" ou texto genérico</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Cada capítulo tem profundidade adequada ao nível (básico/mestrado)</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Casos clínicos são realistas e pedagogicamente úteis</label>
+      </div>
+
+      <!-- SEÇÃO 2: Componentes -->
+      <div style="margin-bottom:16px">
+        <h4 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--cv-blue-dark);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(13,56,81,.1)">🧩 Componentes Interativos</h4>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Quiz final: 10 questões com alternativas corretas verificadas</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Diagnóstica: 5 questões pertinentes ao conteúdo</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Flashcards: mínimo 3 por capítulo, frente/verso coerentes</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Red-flags: alertas clinicamente corretos</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Pílulas: pergunta/resposta pedagogicamente úteis</label>
+      </div>
+
+      <!-- SEÇÃO 3: Referências -->
+      <div style="margin-bottom:16px">
+        <h4 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--cv-blue-dark);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(13,56,81,.1)">📚 Referências Bibliográficas</h4>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Referências verificadas no PubMed/Google Scholar (existem de fato)</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> DOIs corretos e acessíveis (quando informados)</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Refs dentro do período 2020-2025</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Formato ABNT consistente</label>
+      </div>
+
+      <!-- SEÇÃO 4: Tradução -->
+      <div style="margin-bottom:16px">
+        <h4 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--cv-blue-dark);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(13,56,81,.1)">🌐 Tradução Espanhol</h4>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Livro ES: sem trechos em português misturados</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Site ES: botão ES funciona e todo texto muda para espanhol</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Cards ES: hashtags e legendas em espanhol</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Terminologia técnica consistente PT↔ES</label>
+      </div>
+
+      <!-- SEÇÃO 5: Visual/Técnico -->
+      <div style="margin-bottom:16px">
+        <h4 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--cv-blue-dark);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(13,56,81,.1)">🎨 Visual e Técnico</h4>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Site: testado no celular (responsivo OK)</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Livro: Preview → Ctrl+P → PDF sem cortes</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Logo Cura Vitae presente (site, livro, cards)</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> Bandeiras PT/ES visíveis e botões funcionam</label>
+        <label class="qa-item"><input type="checkbox" class="qa-check" onchange="updateQA()"> WhatsApp/IA (se configurados) abrem corretamente</label>
+      </div>
+
+      <!-- SEÇÃO 6: Aprovação -->
+      <div style="background:rgba(13,140,94,.05);padding:16px;border-radius:10px;border:1px solid rgba(13,140,94,.15)">
+        <h4 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--cv-green);margin-bottom:10px">✍️ Aprovação</h4>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div class="fg" style="flex:1;min-width:200px"><label style="font-size:12px">Revisor</label><input type="text" class="ref-input" id="qa-revisor" placeholder="Nome do revisor técnico"></div>
+          <div class="fg" style="flex:1;min-width:200px"><label style="font-size:12px">Data</label><input type="date" class="ref-input" id="qa-data"></div>
+        </div>
+        <div class="fg" style="margin-top:8px"><label style="font-size:12px">Observações</label><input type="text" class="ref-input" id="qa-obs" placeholder="Problemas encontrados, ajustes necessários..."></div>
+        <div style="margin-top:12px;display:flex;align-items:center;gap:12px">
+          <label class="qa-item" style="margin:0;font-weight:700;color:var(--cv-green)"><input type="checkbox" class="qa-check" onchange="updateQA()" id="qa-aprovado"> <strong>APROVADO PARA PUBLICAÇÃO</strong></label>
+          <button class="btn btn-g btn-sm" onclick="exportQA()" style="margin-left:auto">📋 Copiar Relatório QA</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="assets.js"></script>
+<script src="site_templates.js"></script>
+<script src="pdf-generator.js"></script>
+<script src="image-generator.js"></script>
+<script src="logica-v9.js"></script>
