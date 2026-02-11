@@ -1,48 +1,72 @@
-# Configuração Netlify - Sistema Gerador CIPE v8.0
-
 [build]
-  # Pasta raiz do projeto
-  base = "/"
-  
-  # Comando de build (não necessário para site estático)
-  command = "echo 'No build needed'"
-  
-  # Pasta que será publicada (raiz do projeto)
-  publish = "/"
-  
-  # Pasta das functions
-  functions = "netlify/functions"
+  command = ""
+  publish = "."
 
-# ══════════════════════════════════════════════════════════
-# HEADERS DE SEGURANÇA
-# ══════════════════════════════════════════════════════════
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"
 
 [[headers]]
   for = "/*"
   [headers.values]
-    # CORS - permite acesso de qualquer origem (ajustar se necessário)
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type"
-    
-    # Segurança adicional
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+```
 
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "POST, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type"
+---
 
-# ══════════════════════════════════════════════════════════
-# REDIRECTS (opcional - para URLs amigáveis)
-# ══════════════════════════════════════════════════════════
+### **Passo 3: Fazer commit**
 
-# Exemplo: redirecionar /api/openai para a function
-# [[redirects]]
-#   from = "/api/openai"
-#   to = "/.netlify/functions/openai-proxy"
-#   status = 200
+1. Role para baixo
+2. No campo "Commit message", escreva:
+```
+   Corrigir configuração netlify.toml
+```
+3. Clique **"Commit changes"**
+
+---
+
+### **Passo 4: Aguardar deploy automático**
+
+1. Volte para o Netlify
+2. Vá em **"Deploys"**
+3. Vai aparecer um novo deploy automaticamente
+4. Aguarde terminar (~30 segundos)
+
+---
+
+### **Passo 5: Testar novamente**
+
+Depois do deploy:
+
+1. Acesse: `https://sistema-gerador-conteudo.netlify.app`
+2. Clique em **"Testar Conexão"**
+3. Deve aparecer **"Conexão OK!"** ou algo similar!
+
+---
+
+## 📸 ME MANDE
+
+Depois de fazer a correção:
+
+1. ✅ Screenshot do novo deploy no Netlify (deve aparecer "Published")
+2. ✅ Screenshot da tela do site com o botão "Testar Conexão" clicado
+
+---
+
+## 🎯 CHECKLIST
+```
+□ Clicar no ícone de lápis (Edit) no GitHub
+□ Deletar todo o conteúdo antigo
+□ Colar o conteúdo correto (que eu passei acima)
+□ Escrever mensagem de commit
+□ Clicar "Commit changes"
+□ Voltar ao Netlify
+□ Aguardar novo deploy
+□ Testar conexão
+□ Me enviar screenshots
