@@ -237,14 +237,16 @@ async function fetchWithRetry(url, headers, body, retries = 3) {
 
 async function testAPI() {
   var endpoint = getAPIEndpoint();
-  var statusEl = document.querySelector('[id*="status-conexao"]') || document.querySelector('.conexao-status');
+  var statusEl = document.getElementById('connection-status') || document.getElementById('api-test-result');
   
   if (!statusEl) {
     toast('Elemento de status não encontrado');
+    console.error('Nenhum elemento #connection-status ou #api-test-result encontrado no DOM');
     return;
   }
   
   statusEl.textContent = 'Testando...';
+  statusEl.style.color = 'var(--cv-blue)';
   
   try {
     var testMsg = 'Responda apenas: OK';
@@ -268,10 +270,14 @@ async function testAPI() {
         statusEl.style.color = 'var(--cv-green)';
         toast('API funcionando!');
         
-        var indicator = document.querySelector('.api-indicator');
+        var indicator = document.getElementById('apiLabel');
         if (indicator) {
-          indicator.textContent = '🟢 API conectada';
+          indicator.textContent = 'API conectada';
           indicator.style.color = 'var(--cv-green)';
+        }
+        var dot = document.getElementById('apiDot');
+        if (dot) {
+          dot.classList.add('on');
         }
       } else {
         throw new Error(data.error || 'Resposta inválida');
