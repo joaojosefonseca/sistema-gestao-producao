@@ -18,55 +18,14 @@
     Access-Control-Allow-Headers = "Content-Type"
 ```
 
+2. **Cole** na área de texto (Ctrl + V)
+
 ---
 
-### **Passo 3: Fazer commit**
+### **Passo 6: Fazer commit**
 
-1. Role para baixo
-2. No campo "Commit message", escreva:
+1. Role a página para baixo
+2. Vai ver uma seção **"Commit changes"**
+3. No primeiro campo, escreva:
 ```
    Corrigir configuração netlify.toml
-```
-3. Clique **"Commit changes"**
-
----
-
-### **Passo 4: Aguardar deploy automático**
-
-1. Volte para o Netlify
-2. Vá em **"Deploys"**
-3. Vai aparecer um novo deploy automaticamente
-4. Aguarde terminar (~30 segundos)
-
----
-
-### **Passo 5: Testar novamente**
-
-Depois do deploy:
-
-1. Acesse: `https://sistema-gerador-conteudo.netlify.app`
-2. Clique em **"Testar Conexão"**
-3. Deve aparecer **"Conexão OK!"** ou algo similar!
-
----
-
-## 📸 ME MANDE
-
-Depois de fazer a correção:
-
-1. ✅ Screenshot do novo deploy no Netlify (deve aparecer "Published")
-2. ✅ Screenshot da tela do site com o botão "Testar Conexão" clicado
-
----
-
-## 🎯 CHECKLIST
-```
-□ Clicar no ícone de lápis (Edit) no GitHub
-□ Deletar todo o conteúdo antigo
-□ Colar o conteúdo correto (que eu passei acima)
-□ Escrever mensagem de commit
-□ Clicar "Commit changes"
-□ Voltar ao Netlify
-□ Aguardar novo deploy
-□ Testar conexão
-□ Me enviar screenshots
