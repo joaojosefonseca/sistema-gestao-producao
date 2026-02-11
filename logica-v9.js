@@ -2,21 +2,23 @@
 // SISTEMA UNIFICADO v9.1 — GERAÇÃO SEGMENTADA + LAYOUTS PROFISSIONAIS
 // ══════════════════════════════════════════════════════════
 // 
-// PARTE 1 DE 3 - INÍCIO DO CÓDIGO
-//
-// MUDANÇAS v8.0 → v9.1:
-// ✅ Chave API protegida no backend (Netlify Function)
-// ✅ Geração segmentada por capítulo (nunca mais corta conteúdo!)
-// ✅ CSS profissional integrado (Nature/Lancet style)
-// ✅ Validação rigorosa de qualidade
-// ✅ Sistema de anexos (A-H)
-// ✅ Relatório de autoavaliação
+// PROTEÇÃO TOTAL CONTRA DUPLICAÇÃO
 //
 // ══════════════════════════════════════════════════════════
 
+(function() {
+'use strict';
+
+// Prevenir execução múltipla
+if (window.CIPE_SISTEMA_V9_LOADED) {
+  console.log('Sistema v9.1 já carregado');
+  return;
+}
+window.CIPE_SISTEMA_V9_LOADED = true;
+
 let cur=0,maxU=0,tc=0,P=null,contentParts=[],fullContent='',generating=false,sourceMode='doc',docText='',lastPrompts=[];
 let CACHE={siteJSON:null,siteHTML:null,livroPtParts:null,livroPtHTML:null,livroEsHTML:null};
-function clearCache(){CACHE={siteJSON:null,siteHTML:null,livroPtParts:null,livroPtHTML:null,livroEsHTML:null}}
+window.clearCache = function(){CACHE={siteJSON:null,siteHTML:null,livroPtParts:null,livroPtHTML:null,livroEsHTML:null}}
 
 // ══════════════════════════════════════════════════════════
 // CSS PROFISSIONAL INLINE v9.1
@@ -805,5 +807,29 @@ async function generateAll(){
   toast(ok+'/5 produtos gerados!');
 }
 
+// ══════ EXPOR FUNÇÕES GLOBAIS ══════
+window.go = go;
+window.ul = ul;
+window.addT = addT;
+window.addS = addS;
+window.setSource = setSource;
+window.handleFile = handleFile;
+window.testAPI = testAPI;
+window.startGeneration = startGeneration;
+window.approveContent = approveContent;
+window.generateSite = generateSite;
+window.generateLivroPT = generateLivroPT;
+window.generateLivroES = generateLivroES;
+window.generateSocialPT = generateSocialPT;
+window.generateSocialES = generateSocialES;
+window.generateAll = generateAll;
+window.downloadLivroHTML = downloadLivroHTML;
+window.downloadLivroPDF = downloadLivroPDF;
+window.previewLivro = previewLivro;
+window.dl = dl;
+window.downloadPDF = downloadPDF;
+
 // ══════ INIT ══════
 addT();addT();
+
+})(); // FIM IIFE
